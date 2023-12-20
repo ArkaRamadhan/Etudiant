@@ -48,7 +48,7 @@ $detail_query = mysqli_query($koneksi, "INSERT INTO `transaksi`(pesanan, nama, n
 
 
             <div class="returnCart">
-                <a href="/">keep shopping</a>
+                <a href="index.php" class="btn">keep shopping</a>
                 <h1>List Product in Cart</h1>
                 <?php
                 include 'koneksi.php';

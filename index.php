@@ -1,5 +1,6 @@
 <?php
 
+
 include 'koneksi.php';
 
 if (isset($_POST['add_to_cart'])) {
@@ -17,7 +18,6 @@ if (isset($_POST['add_to_cart'])) {
         $message[] = 'product added to cart succesfully';
     }
 }
-
 
 ?>
 
@@ -40,6 +40,7 @@ if (isset($_POST['add_to_cart'])) {
 </head>
 
 <body>
+
     <!-- header -->
     <header>
         <a href="#" class="logo">
@@ -54,21 +55,35 @@ if (isset($_POST['add_to_cart'])) {
             <li><a href="#contact">Contact Us</a></li>
         </ul>
 
+
         <div class="nav-icons">
-            <a href="#"><i class='bx bxs-user'></i></a>
-            <!-- <a href="#"><i class='bx bx-cart'></i></a> -->
-            <a onclick="toggleCart()"><i class='bx bx-cart'></i></a>
+
+            <div class="user-dropdown" id="userDropdown">
+                <a href="#" class="user" id="userIcon"><i class='bx bxs-user'></i></a>
+                <div class="user-dropdown-content">
+                    <!-- Add your logout link or button here -->
+                    <a href="logout.php">Logout</a>
+                </div>
+            </div>
+
+            <a onclick="toggleCart()"><i class='bx bx-cart'></i>
+
+                <?php
+
+                include 'koneksi.php';
+
+                $data = mysqli_query($koneksi, 'select * from cart');
+                $jumlah = mysqli_num_rows($data);
+                echo "<span id='jumlah' class='totalQuantity'>$jumlah</span>";
+                ?>
+
+            </a>
             <div class="bx bx-menu" id="menu-icon"></div>
-
-
 
             <div class="iconCart" onclick="toggleCart()">
 
-                <!-- <div class="totalQuantity">0</div> -->
             </div>
-
-
-
+        </div>
         </div>
 
     </header>
@@ -137,7 +152,7 @@ if (isset($_POST['add_to_cart'])) {
                             echo "<div>Gambar tidak tersedia</div>";
                         } else {
                         ?>
-                            <img src="admin/gambar_menu/<?php echo $gambar ?>" alt="">
+                            <img src="admin/gambar_menu/<?php echo $gambar ?>" alt="" width="2rem" height="auto">
                             <h3><?php echo $nama; ?></h3>
                             <p><?php echo $keterangan; ?></p>
                             <div class="in-text">
@@ -468,7 +483,7 @@ if (isset($_POST['add_to_cart'])) {
             include 'koneksi.php';
             $data = mysqli_query($koneksi, "select * from cart");
             $cek2 = mysqli_num_rows($data);
-            $counter = 1;
+            $counter = 01;
 
             if ($cek2 > 0) {
                 while ($d = mysqli_fetch_assoc($data)) {
@@ -476,6 +491,7 @@ if (isset($_POST['add_to_cart'])) {
                     $nama = $d['name'];
                     $harga = $d['price'];
                     $gambar = $d['image'];
+                    $quantity = $d['quantity'];
 
             ?>
 
@@ -483,13 +499,13 @@ if (isset($_POST['add_to_cart'])) {
                         <img src="admin/gambar_menu/<?php echo $gambar; ?>">
                         <div class="content">
                             <div class="name"><?php echo $nama; ?></div>
-                            <div class="price">Rp. <?php echo $harga; ?></div>
+                            <div class="price">Rp. <?php echo number_format($harga); ?></div>
                         </div>
                         <div class="quantity">
 
                             <!-- Gunakan pengidentifikasi unik untuk setiap elemen terkait kuantitas -->
                             <span class="minus" style="cursor: pointer;">-</span>
-                            <span class="num" style="margin-left: 0.5rem; margin-right:0.5rem;" id="num<?php echo $counter; ?>">01</span>
+                            <span class="num" style="margin-left: 0.5rem; margin-right:0.5rem;" id="num<?php echo $counter; ?>"><?php echo $quantity ?></span>
                             <span class="plus" style="cursor: pointer; margin-right:100%;">+</span>
 
                             <form action="" method="post">
@@ -505,7 +521,7 @@ if (isset($_POST['add_to_cart'])) {
 
                             plus_<?php echo $counter; ?>.addEventListener("click", () => {
                                 a_<?php echo $counter; ?>++;
-                                a_<?php echo $counter; ?> = (a_<?php echo $counter; ?> < 10) ? "0" + a_<?php echo $counter; ?> : a_<?php echo $counter; ?>;
+                                a_<?php echo $counter; ?> = (a_<?php echo $counter; ?> < 10) ? a_<?php echo $counter; ?> : a_<?php echo $counter; ?>;
                                 num_<?php echo $counter; ?>.innerText = a_<?php echo $counter; ?>;
                                 updateQuantity(<?php echo $counter; ?>, '<?php echo $nama; ?>', a_<?php echo $counter; ?>); // Pemanggilan updateQuantity
                             });
@@ -513,7 +529,7 @@ if (isset($_POST['add_to_cart'])) {
                             minus_<?php echo $counter; ?>.addEventListener("click", () => {
                                 if (a_<?php echo $counter; ?> > 1) {
                                     a_<?php echo $counter; ?>--;
-                                    a_<?php echo $counter; ?> = (a_<?php echo $counter; ?> < 10) ? "0" + a_<?php echo $counter; ?> : a_<?php echo $counter; ?>;
+                                    a_<?php echo $counter; ?> = (a_<?php echo $counter; ?> < 10) ? a_<?php echo $counter; ?> : a_<?php echo $counter; ?>;
                                     num_<?php echo $counter; ?>.innerText = a_<?php echo $counter; ?>;
                                     updateQuantity(<?php echo $counter; ?>, '<?php echo $nama; ?>', a_<?php echo $counter; ?>); // Pemanggilan updateQuantity
                                 }

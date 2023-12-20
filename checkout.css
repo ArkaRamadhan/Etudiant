@@ -1,3 +1,15 @@
+:root{
+    --color-utama: #ff9f0d;
+    --text: #fff;
+    --other-color: #212121;
+    --bg: #111111;
+    --second-color: #9e9e9e;
+
+    --big-font: 4.5rem;
+    --h2-font: 2.6rem;
+    --p-font: 1.1rem;
+}
+
 .checkoutLayout{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -77,4 +89,16 @@
 .returnCart .list .item .returnPrice{
     font-size: large;
     font-weight: bold;
+}
+
+.btn{
+    display: inline-block;
+    padding: 15px 35px;
+    background: #5358B3;
+    color: white;
+    font-size: var(--p-font);
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 3rem;
+    transition: all .50s ease;
 }
