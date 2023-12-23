@@ -362,7 +362,7 @@ if (isset($_POST['add_to_cart'])) {
     </section>
 
     <!-- team -->
-    <section class="team" id="team">
+    <!-- <section class="team" id="team">
         <div class="middle-text">
             <h4>Team of Étudiant</h4>
         </div>
@@ -379,7 +379,7 @@ if (isset($_POST['add_to_cart'])) {
                 <a href="#"><i class='bx bxl-instagram-alt'></i></a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- contact -->
     <!-- <section class="contact" id="contact">
