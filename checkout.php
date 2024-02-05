@@ -1,35 +1,38 @@
 <?php
-    include 'koneksi.php';
+include 'koneksi.php';
 
-    if (isset($_POST['order-btn'])) {
+$total_quantity = 0;
 
-        $nama = $_POST['nama'];
-        $notelp = $_POST['no_telp'];
-        $tanggal = $_POST['tanggal'];
-        $alamat = $_POST['alamat'];
-        $message = $_POST['message'];
+if (isset($_POST['order-btn'])) {
 
-        $cart_query = mysqli_query($koneksi, "SELECT * FROM `cart`");
-$price_total = 0;
-$total_products = array(); // Inisialisasi array di sini
+    $nama = $_POST['nama'];
+    $notelp = $_POST['no_telp'];
+    $tanggal = $_POST['tanggal'];
+    $alamat = $_POST['alamat'];
+    $message = $_POST['message'];
 
-if (mysqli_num_rows($cart_query) > 0) {
-    while ($product_item = mysqli_fetch_assoc($cart_query)) {
-        $product_name = $product_item['name'];
-        $quantity = $product_item['quantity'];
-        $product_price = ($product_item['price'] * $product_item['quantity']);
-        $price_total += $product_price;
+    $cart_query = mysqli_query($koneksi, "SELECT * FROM `cart`");
+    $price_total = 0;
+    $total_products = array(); // Inisialisasi array di sini
 
-        // Tambahkan setiap produk ke dalam array
-        $total_products[] = $product_name . '(' . $quantity . ')';
+    if (mysqli_num_rows($cart_query) > 0) {
+        while ($product_item = mysqli_fetch_assoc($cart_query)) {
+            $product_name = $product_item['name'];
+            $quantity = $product_item['quantity'];
+            $product_price = ($product_item['price'] * $product_item['quantity']);
+            $price_total += $product_price;
+
+
+            // Tambahkan setiap produk ke dalam array
+            $total_products[] = $product_name . '(' . $quantity . ')';
+        }
     }
+
+    // Gabungkan hasil format menjadi satu string dengan pemisah koma
+    $total_product = implode(', ', $total_products);
+
+    $detail_query = mysqli_query($koneksi, "INSERT INTO `transaksi`(pesanan, nama, no_telp, alamat, tanggal, message, total_harga) VALUES ('$total_product', '$nama', '$notelp', '$alamat', '$tanggal', '$message', '$price_total')") or die('query failed');
 }
-
-// Gabungkan hasil format menjadi satu string dengan pemisah koma
-$total_product = implode(', ', $total_products);
-
-$detail_query = mysqli_query($koneksi, "INSERT INTO `transaksi`(pesanan, nama, no_telp, alamat, tanggal, message, total_harga) VALUES ('$total_product', '$nama', '$notelp', '$alamat', '$tanggal', '$message', '$price_total')") or die('query failed');
-    }
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +61,7 @@ $detail_query = mysqli_query($koneksi, "INSERT INTO `transaksi`(pesanan, nama, n
                 $grand_total = 0;
                 $counter = 1;
 
+
                 if ($cek2 > 0) {
                     while ($d = mysqli_fetch_assoc($data)) {
                         $id = $d['id'];
@@ -66,7 +70,7 @@ $detail_query = mysqli_query($koneksi, "INSERT INTO `transaksi`(pesanan, nama, n
                         $gambar = $d['image'];
                         $quantity = $d['quantity'];
                         $total_price = ($d['price'] * $d['quantity']);
-                        $total_quantity = $d['quantity'] + $d['quantity'];
+                        $total_quantity += $quantity;
                         $grand_total = $total += $total_price;
 
                 ?>

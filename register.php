@@ -29,7 +29,7 @@
                             <form role="form" action="cek_register.php" method="post" class="login-form">
                                 <div class="form-group ">
                                     <div class="pos-r">                                        
-                                        <input   id="username" type="text" name="username" placeholder="Username" class="form-username form-control">
+                                        <input   id="username" type="text" name="email" placeholder="Email" class="form-username form-control">
                                         <i class="fa fa-user"></i>
                                         <span></span>
                                     </div>
@@ -40,16 +40,9 @@
                                         <i class="fa fa-lock"></i>
                                         <span></span>                                        
                                 </div>
-                                <br>
-                                <div class="form-group">
-                                        <div class="pos-r"> 
-                                        <input id="no_telepon" type="int" name="no_telepon" placeholder="Phone Number" class="form-no-telepon form-control">
-                                        <i class="fa fa-phone"></i>
-                                <span></span>
-                            </div>
-                        </div>
                     </br>
                 </br>
                         <div class="form-group">     
                             <button type="submit" class="btn btn-warning form-control"><strong>Register</strong></button>  
                         </div>  
+</form>

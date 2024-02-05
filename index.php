@@ -588,7 +588,7 @@ if (isset($_POST['add_to_cart'])) {
         </div>
 
         <div class="buttons">
-            <div class="close">
+            <div class="close" onclick="toggleCart()">
                 CLOSE
             </div>
             <div class="checkout">
